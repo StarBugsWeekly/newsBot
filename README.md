@@ -1,5 +1,17 @@
 # newsBot
-The newsBot is a Telegram chatbot, it will post the StarBugs weekly and recommended article to the subscribed Telegram users
+The newsBot is a Telegram chatbot, it will post the [StarBugs weekly](https://github.com/StarBugsWeekly/StarbugsDevOnly) and [recommended article](https://github.com/StarBugsWeekly/recommended_article) to the subscribed Telegram users
+
+## System Diagram
+
+![System Diagram](system_diagram.png)
+
+1. Upsert/Delete the subscribed information into/from Redis
+
+2. Check whether GitHub repository update or not
+
+3. If the GitHub repository has new update, generate jobs as Celery task client and put that into Celery broker (Redis)
+
+4. Publish Telegram message as Celery worker from Celery broker (Redis)
 
 ## Trigger Point
 When one of below conditions meets, the bot will send the message to Telegram channel or user
