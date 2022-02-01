@@ -1,0 +1,11 @@
+# Distribution / packaging
+__pycache__
+
+
+
+# Credential
+config/.env
+
+# Others
+.vscode/
+.DS_Store
