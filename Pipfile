@@ -6,7 +6,12 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+celery = "*"
+PyGithub = "*"
+python-dotenv = "*"
 python-telegram-bot = "*"
+redis = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"

@@ -37,8 +37,8 @@ The `/subscribe` Telegram command will upsert the article subscription informati
 ### /unsubscribe
 The `/unsubscribe` Telegram command will delete the article subscription information from newsBot's database
 
-### /weekly
+### /weekly (Todo)
 The `/weekly` Telegram command let the newsBot to send the latest weekly articles to Telegram channel or user
 
-### /recommend
+### /recommend (Todo)
 The `/recommend` Telegram command let the newsBot to send the latest recommended articles to Telegram channel or user
