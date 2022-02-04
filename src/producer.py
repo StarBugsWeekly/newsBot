@@ -47,7 +47,7 @@ def worker():
             for subscriber in redis_client.scan_iter():
                 consumer.send_message.delay(subscriber.decode(), recommend_publich_url)
 
-        time.sleep(60)
+        time.sleep(600)
 
 thread = threading.Thread(target=worker, daemon=True)
 
