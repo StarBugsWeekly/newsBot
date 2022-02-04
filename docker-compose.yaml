@@ -9,9 +9,12 @@ services:
     volumes:
       - redis_data:/data
     restart: always
+    profiles:
+     - "database"
+     - "production"
 
   celery:
-    image: smalltown/newsbot:latest
+    image: smalltown/newsbot:0.0.2
     command: celery -A celery_app.newsBot worker --loglevel=info
     network_mode: host
     volumes:
@@ -19,8 +22,12 @@ services:
     restart: always    
     depends_on:
       - redis
+    profiles:
+     - "celery"
+     - "production"
+
   bot:
-    image: smalltown/newsbot:latest
+    image: smalltown/newsbot:0.0.2
     command: python bot.py
     network_mode: host
     volumes:
@@ -28,8 +35,12 @@ services:
     restart: always
     depends_on:
       - redis
+    profiles:
+     - "bot"
+     - "production"
+
   producer:
-    image: smalltown/newsbot:latest
+    image: smalltown/newsbot:0.0.2
     command: python producer.py
     network_mode: host
     volumes:
@@ -38,6 +49,9 @@ services:
     depends_on:
       - redis
       - celery
+    profiles:
+     - "producer"
+     - "production"
 
 volumes:
   redis_data:

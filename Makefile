@@ -5,7 +5,8 @@ GREEN := \033[0;32m
 RED := \033[0;31m
 NC := \033[0m
 
-export VERSION := ${VERSION:-0.0.1}
+VERSION ?= latest
+PROFILES ?= database
 
 .DEFAULT_GOAL := help
 
@@ -14,6 +15,25 @@ init:
 	@echo "${BLUE}❤ install python dependency - processing${NC}"
 	pipenv lock --requirements > requirements.txt
 	@echo "${GREEN}✓ install python dependency - success${NC}"
+
+## start devloper mode
+dev-on:
+##@pipenv install
+	@COMPOSE_PROFILES=${PROFILES} docker-compose down
+	@COMPOSE_PROFILES=${PROFILES} docker-compose up -d
+
+## stop developr mode
+dev-off:
+	@COMPOSE_PROFILES=${PROFILES} docker-compose down
+
+prod-on:
+##@pipenv install
+	@COMPOSE_PROFILES=production docker-compose down
+	@COMPOSE_PROFILES=production docker-compose up -d
+
+## stop developr mode
+prod-off:
+	@COMPOSE_PROFILES=production docker-compose down
 
 ## build the docker image
 image-build: init
@@ -40,4 +60,4 @@ help:
 	$(MAKEFILE_LIST) | column -ts $$'\t' |          \
 	grep --color '^[^ ]*'
 
-.PHONY: help init deploy test
+.PHONY: help init dev-on dev-off prod-on prod-off image-build image-push

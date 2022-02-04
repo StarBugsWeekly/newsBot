@@ -1,4 +1,5 @@
 import os
+import logging
 import re
 import redis
 import time
@@ -6,6 +7,9 @@ import threading
 from dotenv import load_dotenv
 from functions.github.github import github
 from celery_app import consumer
+
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logger = logging.getLogger('producer')
 
 load_dotenv()
 
@@ -31,6 +35,7 @@ def worker():
         )
 
         for weekly_publich_url in weekly_publich_urls:
+            logger.info('Prepare publish weekly url: ' + weekly_publich_url)
             for subscriber in redis_client.scan_iter():
                 consumer.send_message.delay(subscriber.decode(), weekly_publich_url)
 
@@ -43,7 +48,10 @@ def worker():
             date_regex = re.compile(r'NotNeedThis')
         )
 
+        print(recommend_publich_urls)
+
         for recommend_publich_url in recommend_publich_urls:
+            logger.info('Prepare publish recommand url: ' + recommend_publich_url)
             for subscriber in redis_client.scan_iter():
                 consumer.send_message.delay(subscriber.decode(), recommend_publich_url)
 

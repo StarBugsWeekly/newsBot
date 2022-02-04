@@ -8,8 +8,8 @@ from dotenv import load_dotenv
 from github import Github, Repository
 import time
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logger = logging.getLogger('producer')
 
 class github():
 
