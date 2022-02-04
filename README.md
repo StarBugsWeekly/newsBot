@@ -1,9 +1,15 @@
 # newsBot
 The newsBot is a Telegram chatbot, it will post the [StarBugs weekly](https://github.com/StarBugsWeekly/StarbugsDevOnly) and [recommended article](https://github.com/StarBugsWeekly/recommended_article) to the subscribed Telegram users
 
+## How to subscribe it?
+
+Just say `/subscribe` to [starbugs_weekly_bot](https://t.me/starbugs_weekly_bot)!
+
+![Subscribe](img/subscribe.png)
+
 ## System Diagram
 
-![System Diagram](system_diagram.png)
+![System Diagram](img/system_diagram.png)
 
 1. Upsert/Delete the subscribed information into/from Redis
 

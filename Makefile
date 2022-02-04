@@ -10,7 +10,7 @@ PROFILES ?= database
 
 .DEFAULT_GOAL := help
 
-## install dependency python package
+## generate requirements.txt
 init:
 	@echo "${BLUE}❤ install python dependency - processing${NC}"
 	pipenv lock --requirements > requirements.txt
@@ -18,7 +18,7 @@ init:
 
 ## start devloper mode
 dev-on:
-##@pipenv install
+	@pipenv install
 	@COMPOSE_PROFILES=${PROFILES} docker-compose down
 	@COMPOSE_PROFILES=${PROFILES} docker-compose up -d
 
@@ -26,20 +26,21 @@ dev-on:
 dev-off:
 	@COMPOSE_PROFILES=${PROFILES} docker-compose down
 
+## start production mode
 prod-on:
-##@pipenv install
 	@COMPOSE_PROFILES=production docker-compose down
 	@COMPOSE_PROFILES=production docker-compose up -d
 
-## stop developr mode
+## stop production mode
 prod-off:
 	@COMPOSE_PROFILES=production docker-compose down
 
-## build the docker image
+## build the container image
 image-build: init
 	@docker build -t smalltown/newsbot:${VERSION} .
 	@docker tag smalltown/newsbot:${VERSION} smalltown/newsbot:latest
 
+## push the container image
 image-push: image-build
 	@docker push smalltown/newsbot:${VERSION}
 	@docker push smalltown/newsbot:latest

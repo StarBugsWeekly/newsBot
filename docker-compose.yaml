@@ -14,7 +14,7 @@ services:
      - "production"
 
   celery:
-    image: smalltown/newsbot:0.0.2
+    image: smalltown/newsbot:0.0.3
     command: celery -A celery_app.newsBot worker --loglevel=info
     network_mode: host
     volumes:
@@ -27,7 +27,7 @@ services:
      - "production"
 
   bot:
-    image: smalltown/newsbot:0.0.2
+    image: smalltown/newsbot:0.0.3
     command: python bot.py
     network_mode: host
     volumes:
@@ -40,7 +40,7 @@ services:
      - "production"
 
   producer:
-    image: smalltown/newsbot:0.0.2
+    image: smalltown/newsbot:0.0.3
     command: python producer.py
     network_mode: host
     volumes:
