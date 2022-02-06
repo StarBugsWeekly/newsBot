@@ -93,7 +93,7 @@ class github():
             current_commit = cached_info['current_commit']
             publich_urls = self.get_publich_urls(target_repo, current_commit, latest_commit, url_pattern, file_regex, date_regex)
 
-            if current_commit != latest_commit:
+            if current_commit != latest_commit and publich_urls:
                 self.upsert_current_commit(redis_key, latest_commit, publich_urls)
 
         return publich_urls
